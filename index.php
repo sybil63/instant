@@ -1,4 +1,18 @@
+<pre>
 <?php
+require_once('lib/bootstrap.php');
+$url = _url();
+echo $url;
+
+$posts = _get_posts();
+var_dump($posts);
+
+$config = _get_config();
+$config['posts'] = $posts;
+var_dump($config);
+
+echo Spyc::YAMLDump($config);
+
 function _url()
 {
     if (!empty($_SERVER['PATH_INFO'])) {
@@ -14,5 +28,25 @@ function _url()
     }
     return $uri;
 }
-$url = _url();
-echo $url;
+
+
+function _get_config()
+{
+    $data = Spyc::YAMLLoad("config.yaml");
+    return $data;
+}
+
+function _get_posts()
+{
+    $posts = array();
+    if ($handle = opendir('posts')) {
+        while (false !== ($entry = readdir($handle))) {
+            if ($entry != "." && $entry != "..") {
+                $file = explode(".", $entry);
+                $posts[$file[0]] = $entry;
+            }
+        }
+        closedir($handle);
+    }
+    return $posts;
+}
