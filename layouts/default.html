@@ -1,0 +1,41 @@
+{% capture root_url %}{{ site.root | strip_slash }}{% endcapture %}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+   <title>{{ page.title }}</title>
+   <meta name="author" content="{{ site.author }}" />
+   <link href="http://sybil63.com/atom.xml" rel="alternate" title="sybil63" type="application/atom+xml" />
+
+   <!-- syntax highlighting CSS -->
+   <link rel="stylesheet" href="/css/{{ site.syntax }}.css" type="text/css" />
+
+   <!-- Homepage CSS -->
+   <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
+
+   {% include google_analytics.html %}
+</head>
+
+<body>
+<div class = 'site'>
+    <header class="page-header">
+        <a href="/">Sybil63</a> |
+        <a href="/blog/archives"><span>Archives<span></a> |
+        <a href="/blog/about">About</a> |
+    </header>
+
+    <div id = 'main-content'>
+        {{ content }}
+    </div>
+
+    <div class = "footer">
+        <p>
+        Copyright &copy; {{ site.time | date: "%Y" }} - {{ site.author }} -
+        </p>
+        <p>
+            The Blog is powered by <a href='https://github.com/mojombo/jekyll' target=_black>Jekyll</a>
+        </p>
+    </div>
+</div>
+</body>
+</html>
