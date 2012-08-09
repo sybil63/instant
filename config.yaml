@@ -7,13 +7,8 @@ subtitle: Now is only the beginning~
 author: Sybil
 
 #The syntax to highlight code
-#monokai, perldoc, default, native
-syntax: monokai
-
-# ----------------------- #
-#    Jekyll & Plugins     #
-# ----------------------- #
+#vibrant, zenburn
+syntax: vibrant
 
 permalink: pretty
-markdown: rdiscount
-pygments: true # default python pygments have been replaced by pygments.rb
+index: index

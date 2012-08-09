@@ -2,7 +2,7 @@
    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
    <!-- syntax highlighting CSS -->
-   <link rel="stylesheet" href="/css/monokai.css" type="text/css" />
+   <link rel="stylesheet" href="/css/vibrant.css" type="text/css" />
 
    <!-- Homepage CSS -->
    <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
@@ -13,6 +13,9 @@
 require_once('lib/bootstrap.php');
 $url = _url();
 echo $url;
+
+$post_name = _get_post_name($url);
+echo $post_name;
 
 $posts = _get_posts();
 var_dump($posts);
@@ -49,6 +52,22 @@ function _url()
     return $uri;
 }
 
+function _get_post_name($url)
+{
+    $tmp = explode("/", $url);
+    $len = count($tmp);
+    $name = "";
+    if ($len > 1) {
+        for ($i = 1; $i < $len; $i++) {
+            if ($i > 1)
+                $name .= '-';
+            $name .= $tmp[$i];
+        }
+    } else {
+        $name = 'index';
+    }
+    return $name;
+}
 
 function _get_config()
 {
@@ -100,4 +119,10 @@ function _get_post($filename)
     $config = Spyc::YAMLLoadString($configStr);
     $config['content'] = $content;
     return $config;
+}
+
+function _render_syntax($content)
+{
+    $tmp = explode("\n", $content);
+    var_dump($tmp);
 }

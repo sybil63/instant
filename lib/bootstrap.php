@@ -10,3 +10,4 @@ require_once(dirname(__FILE__) . '/Spyc/Spyc.php');
 
 require_once(dirname(__FILE__) . '/php-markdown/markdown.php');
 require_once(dirname(__FILE__) . '/tools.php');
+require_once(dirname(__FILE__) . '/Hyperlight/hyperlight.php');
