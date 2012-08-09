@@ -20,7 +20,7 @@ $arr2 = new Array(element0, element1, ..., elementN);
 {% endhighlight %}
 
 ##test highlight line on
-{% highlight php %}
-$arr1 = new Array(arrayLength);
-$arr2 = new Array(element0, element1, ..., elementN);
-{% endhighlight %}
+<div class="highlight"><pre><code class="javascript"><span class="lineno">1</span> <span class="kd">var</span> <span class="nx">arr1</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="nx">arrayLength</span><span class="p">);</span>
+<span class="lineno">2</span> <span class="kd">var</span> <span class="nx">arr2</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="nx">element0</span><span class="p">,</span> <span class="nx">element1</span><span class="p">,</span> <span class="p">...,</span> <span class="nx">elementN</span><span class="p">);</span>
+</code></pre>
+</div>

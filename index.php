@@ -9,6 +9,7 @@
 </head>
 
 <body>
+    <div class="site">
 <?php
 require_once('lib/bootstrap.php');
 $url = _url();
@@ -127,9 +128,9 @@ function _render_syntax($content)
             $lang = $mathces[1];
             $str = "";
         }else if (preg_match('/{%\s+endhighlight\s+%}/', $line, $mathces)) {
-            $ret .= '<p>';
-            $ret .= hyperlight($str, $lang);
-            $ret .= '</p>';
+            $ret .= '<div class="highlight"><p><pre>';
+            $ret .= hyperlight($str, $lang, $tag = array("code"));
+            $ret .= '</pre></p></div>';
             $lang = false;
         } else if (false === $lang) {
             $ret .= $line;
