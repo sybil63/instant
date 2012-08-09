@@ -1,4 +1,14 @@
-<pre>
+<head>
+   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+   <!-- syntax highlighting CSS -->
+   <link rel="stylesheet" href="/css/monokai.css" type="text/css" />
+
+   <!-- Homepage CSS -->
+   <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
+</head>
+
+<body>
 <?php
 require_once('lib/bootstrap.php');
 $url = _url();
