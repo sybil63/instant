@@ -24,17 +24,11 @@ $config = _get_config();
 $config['posts'] = $posts;
 var_dump($config);
 
-echo Spyc::YAMLDump($config);
-
-$content = file_get_contents("posts/test.md");
-//$data = Spyc::YAMLLoad("posts/test.md");
-$data = Spyc::YAMLLoadString($content);
-var_dump($data);
-
 $post = _get_post('test.md');
 var_dump($post);
 
-echo Markdown($post['content']);
+$content =  Markdown($post['content']);
+$content = _render_syntax($content);
 
 function _url()
 {
