@@ -25,10 +25,11 @@ $config['posts'] = $posts;
 var_dump($config);
 
 $post = _get_post('test.md');
-var_dump($post);
+//var_dump($post);
 
 $content =  Markdown($post['content']);
 $content = _render_syntax($content);
+echo $content;
 
 function _url()
 {
@@ -117,6 +118,26 @@ function _get_post($filename)
 
 function _render_syntax($content)
 {
-    $tmp = explode("\n", $content);
-    var_dump($tmp);
+    $lines = explode("\n", $content);
+    $ret = "";
+    $lang = false;
+    $str = "";
+    foreach ($lines as $line) {
+        if (preg_match('/{%\s+highlight\s+(\w+)\s+%}/', $line, $mathces)) {
+            $lang = $mathces[1];
+            $str = "";
+        }else if (preg_match('/{%\s+endhighlight\s+%}/', $line, $mathces)) {
+            $ret .= '<p>';
+            $ret .= hyperlight($str, $lang);
+            $ret .= '</p>';
+            $lang = false;
+        } else if (false === $lang) {
+            $ret .= $line;
+            $ret .= "\n";
+        } else {
+            $str .= $line;
+            $str .= "\n";
+        }
+    }
+    return $ret;
 }
