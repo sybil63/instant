@@ -11,8 +11,10 @@ $config['posts'] = $posts;
 //var_dump($posts);
 //var_dump($config);
 
-//$post_name = 'test.md';
 $post_filename = $posts[$post_name]['filename'];
+if (null == $post_filename) {
+    die("Can't find post");
+}
 $post = _get_post($post_filename);
 //var_dump($post);
 
