@@ -3,12 +3,12 @@
 # ----------------------- #
 
 title: Sybil's Blog
-subtitle: Now is only the beginning~
 author: Sybil
+time: 2012
 
 #The syntax to highlight code
 #vibrant, zenburn
 syntax: vibrant
 
 permalink: pretty
-index: index
+index: archives

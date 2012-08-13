@@ -1,9 +1,6 @@
 <?php
 require_once('lib/bootstrap.php');
 $url = _url();
-$post_name = _get_post_name($url);
-//echo $url;
-//echo $post_name;
 
 $posts = _get_posts();
 $config = _get_config();
@@ -11,6 +8,10 @@ $config['posts'] = $posts;
 //var_dump($posts);
 //var_dump($config);
 
+$post_name = _get_post_name($url);
+if (null == $post_name) {
+    $post_name = $config['index']; 
+}
 $post_filename = _get_post_filename($post_name, $posts);
 if (null == $post_filename) {
     die("Can't find post");
@@ -110,7 +111,7 @@ function _get_post_name($url)
             $name .= $tmp[$i];
         }
     } else {
-        $name = 'index';
+        return null;
     }
     return $name;
 }
