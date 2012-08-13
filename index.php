@@ -29,7 +29,6 @@ $content =  Markdown($content);
 $layout = _get_layout($post['layout']);
 //echo $layout['content'];
 $layout = _render_layout($config, $layout);
-var_dump($layout);
 
 $post = _render_post($config, $post, $content, $layout);
 echo $post;
