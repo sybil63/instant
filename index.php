@@ -29,6 +29,7 @@ $content =  Markdown($content);
 $layout = _get_layout($post['layout']);
 //echo $layout['content'];
 $layout = _render_layout($config, $layout);
+var_dump($layout);
 
 $post = _render_post($config, $post, $content, $layout);
 echo $post;
@@ -45,13 +46,14 @@ function _get_post_filename($post_name, $posts)
 
 function _render_post($site_config, $page_config, $content, $layout)
 {
-    $mustache = new Mustache_Engine();
+    $mustache = new Mustache_Engine(array(
+        'partials_loader' => new Mustache_Loader_ArrayLoader(array('content' => $content))
+    ));
     $render_config = array(
         'site' => $site_config,
-        'page' => $page_config,
-        'content' => $content
+        'page' => $page_config
     );
-    $layout = preg_replace('/{{\s+content\s+}}/', '{{{ content }}}', $layout);
+    $layout = preg_replace('/{{\s+content\s+}}/', '{{> content }}', $layout);
     $post = $mustache->render($layout, $render_config);
     return $post;
 }
@@ -65,6 +67,9 @@ function _render_layout($site_config, $layout)
     }
     $layouts[] = $layout;
     $len = count($layouts);
+    if (1 == $len) {
+        return $layout['content'];
+    }
     $mustache = new Mustache_Engine();
     for ($i = $len-1; $i > 0; $i--) {
         $template = $layouts[$i]['content'];
@@ -74,7 +79,6 @@ function _render_layout($site_config, $layout)
             'content' => $layouts[$i-1]['content']
         );
         $layout = $mustache->render($template, $render_config);
-        $layouts[$i-1]['content'] = $layout;
     }
     return $layout;
 }
