@@ -88,9 +88,9 @@ function _get_post_name($url)
     $tmp = explode("/", $url);
     $len = count($tmp);
     $name = "";
-    if ($len > 1) {
-        for ($i = 1; $i < $len; $i++) {
-            if ($i > 1)
+    if ($len > 2) {
+        for ($i = 2; $i < $len; $i++) {
+            if ($i > 2)
                 $name .= '-';
             $name .= $tmp[$i];
         }
