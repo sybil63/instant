@@ -13,23 +13,25 @@
 <?php
 require_once('lib/bootstrap.php');
 $url = _url();
-echo $url;
+//echo $url;
 
 $post_name = _get_post_name($url);
-echo $post_name;
+//echo $post_name;
 
 $posts = _get_posts();
-var_dump($posts);
+//var_dump($posts);
 
 $config = _get_config();
 $config['posts'] = $posts;
-var_dump($config);
+//var_dump($config);
 
 $post = _get_post('test.md');
 //var_dump($post);
 
-$content =  Markdown($post['content']);
+$content = $post['content'];
+
 $content = _render_syntax($content);
+$content =  Markdown($content);
 echo $content;
 
 function _url()
@@ -128,9 +130,11 @@ function _render_syntax($content)
             $lang = $mathces[1];
             $str = "";
         }else if (preg_match('/{%\s+endhighlight\s+%}/', $line, $mathces)) {
-            $ret .= '<div class="highlight"><p><pre>';
-            $ret .= hyperlight($str, $lang, $tag = array("code"));
-            $ret .= '</pre></p></div>';
+            $ret .= "\n";
+            $ret .= '<div class="highlight"><p>';
+            $ret .= hyperlight($str, $lang, array("code"));
+            $ret .= '</p></div>';
+            $ret .= "\n";
             $lang = false;
         } else if (false === $lang) {
             $ret .= $line;
