@@ -1,20 +1,19 @@
 <?php
 require_once('lib/bootstrap.php');
 $url = _url();
-//echo $url;
-
 $post_name = _get_post_name($url);
+//echo $url;
 //echo $post_name;
 
 $posts = _get_posts();
-//var_dump($posts);
-
 $config = _get_config();
 $config['posts'] = $posts;
+//var_dump($posts);
 //var_dump($config);
 
-$post_name = 'test.md';
-$post = _get_post($post_name);
+//$post_name = 'test.md';
+$post_filename = $posts[$post_name]['filename'];
+$post = _get_post($post_filename);
 //var_dump($post);
 
 $content = $post['content'];
@@ -114,7 +113,16 @@ function _get_posts()
         while (false !== ($entry = readdir($handle))) {
             if ($entry != "." && $entry != "..") {
                 $file = explode(".", $entry);
-                $posts[$file[0]] = $entry;
+                $post_name = $file[0];
+                $posts[$post_name]['filename'] = $entry;
+                $url = "/posts";
+                $words = explode('-', $filename);
+                foreach ($words as $word) {
+                    $url .= '/';
+                    $url .= $word;
+                }
+                $posts[$post_name]['url'] = $url;
+                $posts[$post_name]['title'] = $words[count($words) - 1];
             }
         }
         closedir($handle);
