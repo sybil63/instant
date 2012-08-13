@@ -4,6 +4,7 @@ layout: post
 title: "Welcome to instant"
 date: 2012-03-09 00:33
 comments: false
+categories: ['test']
 ---
 
 ## Welcome to instant

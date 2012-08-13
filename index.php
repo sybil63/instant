@@ -2,46 +2,56 @@
 require_once('lib/bootstrap.php');
 $url = _url();
 
-$posts = _get_posts();
-$config = _get_config();
-$config['posts'] = $posts;
-//var_dump($posts);
-//var_dump($config);
+$cache_base = './cache';
+$config_cache = "$cache_base/config";
+if (file_exists($config_cache)){
+    $config = Spyc::YAMLLoad($config_cache);
+}else {
+    $posts = _get_posts();
+    $config = _get_config();
+    $config['posts'] = $posts;
+    $config['categories'] = _get_categories($posts);
+    $cache_data = Spyc::YAMLDump($config);
+    if (false === file_exists($cache_base)) {
+        mkdir($cache_base);
+    }
+    file_put_contents($config_cache, $cache_data);
+}
 
 $post_name = _get_post_name($url);
 if (null == $post_name) {
     $post_name = $config['index']; 
 }
-$post_filename = _get_post_filename($post_name, $posts);
+$post_filename = $config['posts'][$post_name]['filename'];
 if (null == $post_filename) {
     die("Can't find post");
 }
-$post = _get_post($post_filename);
-//var_dump($post);
 
+$post = _get_post($post_filename);
 $content = $post['content'];
 unset($post['content']);
-//var_dump($post);
 
 $content = _render_syntax($content);
 $content =  Markdown($content);
-//echo $content;
 
 $layout = _get_layout($post['layout']);
-//echo $layout['content'];
 $layout = _render_layout($config, $layout);
 
 $post = _render_post($config, $post, $content, $layout);
 echo $post;
 
-function _get_post_filename($post_name, $posts)
+function _get_categories($posts)
 {
+    $categories = array();
     foreach ($posts as $post) {
-        if ($post_name == $post['name']) {
-            return $post['filename'];
+        if (false === isset($post['categories'])) {
+            continue;
+        }
+        foreach ($post['categories'] as $category) {
+            $categories[$category][] = $post;
         }
     }
-    return null;
+    return $categories;
 }
 
 function _render_post($site_config, $page_config, $content, $layout)
@@ -130,6 +140,7 @@ function _get_posts()
             if ($entry != "." && $entry != "..") {
                 $file = explode(".", $entry);
                 $post_name = $file[0];
+                $post = array();
                 $post['filename'] = $entry;
                 $post['name'] = $post_name;
                 $url = "/posts";
@@ -140,7 +151,9 @@ function _get_posts()
                 }
                 $post['url'] = $url;
                 $post['title'] = $words[count($words) - 1];
-                $posts[] = $post;
+                $tmp = _get_post($entry);
+                $post = array_merge($post, $tmp);
+                $posts[$post_name] = $post;
             }
         }
         closedir($handle);

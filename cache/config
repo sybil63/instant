@@ -1,0 +1,213 @@
+---
+title: "Sybil's Blog"
+author: Sybil
+time: 2012
+syntax: vibrant
+permalink: pretty
+index: archives
+posts:
+  about:
+    filename: about.md
+    name: about
+    url: /posts/about
+    title: Sybil63
+    layout: default
+    content: |
+      |
+            
+            <p class="title">{{ page.title }} </p>
+            
+            ##About  
+            * 89年生，性别女
+            * 不放弃认识世界的理想主义者
+            * 喜欢简单优美的事物
+            * 程序员，目前在网易旗下搜索-网易有道
+            * github的粉丝，开源软件爱好者
+            * 旅游、滑雪、吉他是目前正在发展的业余爱好
+            
+            ##About this site  
+            
+            ##Contact  
+            * Email: xichen0603@gmail.com
+            * Weibo: __sybil
+  index:
+    filename: index.md
+    name: index
+    url: /posts/index
+    title: Welcome to instant
+    published: true
+    layout: post
+    date: 2012-03-09 00:33
+    comments: false
+    categories:
+      - test
+    content: |
+      |
+            
+            ## Welcome to instant
+            
+            this is a simple markdown blog
+            
+            ## test highlight 
+            {% highlight php %}
+            function preg_strip($expression) {
+                $regex = '/^(.)(.*)\\\\1([imsxeADSUXJu]*)$/s';
+                if (preg_match($regex, $expression, $matches) !== 1)
+                    return false;
+                $delim = $matches[1];
+                $sub_expr = $matches[2];
+                if ($delim !== '/') {
+                    // Replace occurrences by the escaped delimiter by its unescaped
+                    // version and escape new delimiter.
+                    $sub_expr = str_replace("\\\\$delim", $delim, $sub_expr);
+                    $sub_expr = str_replace('/', '\\\\/', $sub_expr);
+                }
+                
+                $modifiers = $matches[3] === '\' ?
+                    array() : str_split(trim($matches[3]));
+                return array($sub_expr, $modifiers);
+            }
+            {% endhighlight %}
+  2012-08-13-test:
+    filename: 2012-08-13-test.md
+    name: 2012-08-13-test
+    url: /posts/2012/08/13/test
+    title: Hello World
+    published: true
+    layout: post
+    date: 2012-03-09 00:33
+    comments: false
+    categories:
+      - test
+    content: |
+      |
+            
+            ## 测试img
+            
+            ![Sakula](http://sybil-blog.b0.upaiyun.com/sakula.jpg!blog4dc)
+            
+            testetste
+            
+            ## test highlight 
+            {% highlight php %}
+            function preg_strip($expression) {
+                $regex = '/^(.)(.*)\\\\1([imsxeADSUXJu]*)$/s';
+                if (preg_match($regex, $expression, $matches) !== 1)
+                    return false;
+                $delim = $matches[1];
+                $sub_expr = $matches[2];
+                if ($delim !== '/') {
+                    // Replace occurrences by the escaped delimiter by its unescaped
+                    // version and escape new delimiter.
+                    
+                    $sub_expr = str_replace("\\\\$delim", $delim, $sub_expr);
+                    $sub_expr = str_replace('/', '\\\\/', $sub_expr);
+                }
+                
+                $modifiers = $matches[3] === '\' ?
+                    array() : str_split(trim($matches[3]));
+                return array($sub_expr, $modifiers);
+            }
+            {% endhighlight %}
+            
+            ##test highlight line on
+  archives:
+    filename: archives.md
+    name: archives
+    url: /posts/archives
+    title: Archives
+    layout: default
+    content: |
+      |
+            
+            <div id="home">
+              <h1>Blog Posts</h1>
+              <ul class="posts">
+                {{#site.categories.test}}
+                  <li><span>{{date}}</span> &raquo; <a href="{{url}}">{{title}}</a></li>
+                {{/site.categories.test}}
+              </ul>
+            </div>
+categories:
+  test:
+    - 
+      filename: index.md
+      name: index
+      url: /posts/index
+      title: Welcome to instant
+      published: true
+      layout: post
+      date: 2012-03-09 00:33
+      comments: false
+      categories:
+        - test
+      content: |
+        |
+                
+                ## Welcome to instant
+                
+                this is a simple markdown blog
+                
+                ## test highlight 
+                {% highlight php %}
+                function preg_strip($expression) {
+                    $regex = '/^(.)(.*)\\\\1([imsxeADSUXJu]*)$/s';
+                    if (preg_match($regex, $expression, $matches) !== 1)
+                        return false;
+                    $delim = $matches[1];
+                    $sub_expr = $matches[2];
+                    if ($delim !== '/') {
+                        // Replace occurrences by the escaped delimiter by its unescaped
+                        // version and escape new delimiter.
+                        $sub_expr = str_replace("\\\\$delim", $delim, $sub_expr);
+                        $sub_expr = str_replace('/', '\\\\/', $sub_expr);
+                    }
+                    
+                    $modifiers = $matches[3] === '\' ?
+                        array() : str_split(trim($matches[3]));
+                    return array($sub_expr, $modifiers);
+                }
+                {% endhighlight %}
+    - 
+      filename: 2012-08-13-test.md
+      name: 2012-08-13-test
+      url: /posts/2012/08/13/test
+      title: Hello World
+      published: true
+      layout: post
+      date: 2012-03-09 00:33
+      comments: false
+      categories:
+        - test
+      content: |
+        |
+                
+                ## 测试img
+                
+                ![Sakula](http://sybil-blog.b0.upaiyun.com/sakula.jpg!blog4dc)
+                
+                testetste
+                
+                ## test highlight 
+                {% highlight php %}
+                function preg_strip($expression) {
+                    $regex = '/^(.)(.*)\\\\1([imsxeADSUXJu]*)$/s';
+                    if (preg_match($regex, $expression, $matches) !== 1)
+                        return false;
+                    $delim = $matches[1];
+                    $sub_expr = $matches[2];
+                    if ($delim !== '/') {
+                        // Replace occurrences by the escaped delimiter by its unescaped
+                        // version and escape new delimiter.
+                        
+                        $sub_expr = str_replace("\\\\$delim", $delim, $sub_expr);
+                        $sub_expr = str_replace('/', '\\\\/', $sub_expr);
+                    }
+                    
+                    $modifiers = $matches[3] === '\' ?
+                        array() : str_split(trim($matches[3]));
+                    return array($sub_expr, $modifiers);
+                }
+                {% endhighlight %}
+                
+                ##test highlight line on
