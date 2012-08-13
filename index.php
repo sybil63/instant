@@ -2,7 +2,7 @@
 require_once('lib/bootstrap.php');
 $url = _url();
 
-$use_cache = false;
+$use_cache = true;
 $cache_base = './cache';
 $config_cache = "$cache_base/config";
 if ($use_cache && file_exists($config_cache)){

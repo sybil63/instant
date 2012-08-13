@@ -6,30 +6,67 @@ syntax: vibrant
 permalink: pretty
 index: archives
 posts:
+  2012-08-13-test:
+    filename: 2012-08-13-test.md
+    name: 2012-08-13-test
+    url: /posts/2012/08/13/test
+    title: Hello World
+    published: true
+    layout: post
+    date: 2012-03-09 00:33
+    comments: false
+    categories:
+      - test
+    content: |
+      |
+            
+            ## 测试img
+            
+            ![testimage](/images/data.png)
+            
+            testetste
+            
+            ## test highlight 
+            {% highlight php %}
+            function preg_strip($expression) {
+                $regex = '/^(.)(.*)\\\\1([imsxeADSUXJu]*)$/s';
+                if (preg_match($regex, $expression, $matches) !== 1)
+                    return false;
+                $delim = $matches[1];
+                $sub_expr = $matches[2];
+                if ($delim !== '/') {
+                    // Replace occurrences by the escaped delimiter by its unescaped
+                    // version and escape new delimiter.
+                    
+                    $sub_expr = str_replace("\\\\$delim", $delim, $sub_expr);
+                    $sub_expr = str_replace('/', '\\\\/', $sub_expr);
+                }
+                
+                $modifiers = $matches[3] === '\' ?
+                    array() : str_split(trim($matches[3]));
+                return array($sub_expr, $modifiers);
+            }
+            {% endhighlight %}
+            
+            ##test highlight line on
   about:
     filename: about.md
     name: about
     url: /posts/about
-    title: Sybil63
+    title: Markdown blog
     layout: default
     content: |
       |
             
             <p class="title">{{ page.title }} </p>
             
-            ##About  
-            * 89年生，性别女
-            * 不放弃认识世界的理想主义者
-            * 喜欢简单优美的事物
-            * 程序员，目前在网易旗下搜索-网易有道
-            * github的粉丝，开源软件爱好者
-            * 旅游、滑雪、吉他是目前正在发展的业余爱好
+            ##About
+            * 一个用markdown写blog的应用
+            * php版本的jekyll
+            * 由于写readme实在太恶心了，这个小东西可以比较方便的使用IDE写readme
             
-            ##About this site  
-            
-            ##Contact  
+            ##Contact
             * Email: xichen0603@gmail.com
-            * Weibo: __sybil
   index:
     filename: index.md
     name: index
@@ -68,49 +105,6 @@ posts:
                 return array($sub_expr, $modifiers);
             }
             {% endhighlight %}
-  2012-08-13-test:
-    filename: 2012-08-13-test.md
-    name: 2012-08-13-test
-    url: /posts/2012/08/13/test
-    title: Hello World
-    published: true
-    layout: post
-    date: 2012-03-09 00:33
-    comments: false
-    categories:
-      - test
-    content: |
-      |
-            
-            ## 测试img
-            
-            ![Sakula](http://sybil-blog.b0.upaiyun.com/sakula.jpg!blog4dc)
-            
-            testetste
-            
-            ## test highlight 
-            {% highlight php %}
-            function preg_strip($expression) {
-                $regex = '/^(.)(.*)\\\\1([imsxeADSUXJu]*)$/s';
-                if (preg_match($regex, $expression, $matches) !== 1)
-                    return false;
-                $delim = $matches[1];
-                $sub_expr = $matches[2];
-                if ($delim !== '/') {
-                    // Replace occurrences by the escaped delimiter by its unescaped
-                    // version and escape new delimiter.
-                    
-                    $sub_expr = str_replace("\\\\$delim", $delim, $sub_expr);
-                    $sub_expr = str_replace('/', '\\\\/', $sub_expr);
-                }
-                
-                $modifiers = $matches[3] === '\' ?
-                    array() : str_split(trim($matches[3]));
-                return array($sub_expr, $modifiers);
-            }
-            {% endhighlight %}
-            
-            ##test highlight line on
   archives:
     filename: archives.md
     name: archives
@@ -130,6 +124,49 @@ posts:
             </div>
 categories:
   test:
+    - 
+      filename: 2012-08-13-test.md
+      name: 2012-08-13-test
+      url: /posts/2012/08/13/test
+      title: Hello World
+      published: true
+      layout: post
+      date: 2012-03-09 00:33
+      comments: false
+      categories:
+        - test
+      content: |
+        |
+                
+                ## 测试img
+                
+                ![testimage](/images/data.png)
+                
+                testetste
+                
+                ## test highlight 
+                {% highlight php %}
+                function preg_strip($expression) {
+                    $regex = '/^(.)(.*)\\\\1([imsxeADSUXJu]*)$/s';
+                    if (preg_match($regex, $expression, $matches) !== 1)
+                        return false;
+                    $delim = $matches[1];
+                    $sub_expr = $matches[2];
+                    if ($delim !== '/') {
+                        // Replace occurrences by the escaped delimiter by its unescaped
+                        // version and escape new delimiter.
+                        
+                        $sub_expr = str_replace("\\\\$delim", $delim, $sub_expr);
+                        $sub_expr = str_replace('/', '\\\\/', $sub_expr);
+                    }
+                    
+                    $modifiers = $matches[3] === '\' ?
+                        array() : str_split(trim($matches[3]));
+                    return array($sub_expr, $modifiers);
+                }
+                {% endhighlight %}
+                
+                ##test highlight line on
     - 
       filename: index.md
       name: index
@@ -168,46 +205,3 @@ categories:
                     return array($sub_expr, $modifiers);
                 }
                 {% endhighlight %}
-    - 
-      filename: 2012-08-13-test.md
-      name: 2012-08-13-test
-      url: /posts/2012/08/13/test
-      title: Hello World
-      published: true
-      layout: post
-      date: 2012-03-09 00:33
-      comments: false
-      categories:
-        - test
-      content: |
-        |
-                
-                ## 测试img
-                
-                ![Sakula](http://sybil-blog.b0.upaiyun.com/sakula.jpg!blog4dc)
-                
-                testetste
-                
-                ## test highlight 
-                {% highlight php %}
-                function preg_strip($expression) {
-                    $regex = '/^(.)(.*)\\\\1([imsxeADSUXJu]*)$/s';
-                    if (preg_match($regex, $expression, $matches) !== 1)
-                        return false;
-                    $delim = $matches[1];
-                    $sub_expr = $matches[2];
-                    if ($delim !== '/') {
-                        // Replace occurrences by the escaped delimiter by its unescaped
-                        // version and escape new delimiter.
-                        
-                        $sub_expr = str_replace("\\\\$delim", $delim, $sub_expr);
-                        $sub_expr = str_replace('/', '\\\\/', $sub_expr);
-                    }
-                    
-                    $modifiers = $matches[3] === '\' ?
-                        array() : str_split(trim($matches[3]));
-                    return array($sub_expr, $modifiers);
-                }
-                {% endhighlight %}
-                
-                ##test highlight line on
