@@ -1,4 +1,3 @@
-{% capture root_url %}{{ site.root | strip_slash }}{% endcapture %}
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
 <head>
@@ -12,8 +11,6 @@
 
    <!-- Homepage CSS -->
    <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
-
-   {% include google_analytics.html %}
 </head>
 
 <body>
@@ -30,7 +27,7 @@
 
     <div class = "footer">
         <p>
-        Copyright &copy; {{ site.time | date: "%Y" }} - {{ site.author }} -
+        Copyright &copy; {{ site.time }} - {{ site.author }} -
         </p>
         <p>
             The Blog is powered by <a href='https://github.com/mojombo/jekyll' target=_black>Jekyll</a>

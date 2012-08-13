@@ -1,15 +1,3 @@
-<head>
-   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-
-   <!-- syntax highlighting CSS -->
-   <link rel="stylesheet" href="/css/vibrant.css" type="text/css" />
-
-   <!-- Homepage CSS -->
-   <link rel="stylesheet" href="/css/screen.css" type="text/css" media="screen, projection" />
-</head>
-
-<body>
-    <div class="site">
 <?php
 require_once('lib/bootstrap.php');
 $url = _url();
@@ -25,14 +13,59 @@ $config = _get_config();
 $config['posts'] = $posts;
 //var_dump($config);
 
-$post = _get_post('test.md');
+$post_name = 'test.md';
+$post = _get_post($post_name);
 //var_dump($post);
 
 $content = $post['content'];
+unset($post['content']);
+//var_dump($post);
 
 $content = _render_syntax($content);
 $content =  Markdown($content);
-echo $content;
+//echo $content;
+
+$layout = _get_layout($post['layout']);
+//echo $layout['content'];
+$layout = _render_layout($config, $layout);
+
+$post = _render_post($config, $post, $content, $layout);
+echo $post;
+
+function _render_post($site_config, $page_config, $content, $layout)
+{
+    $mustache = new Mustache_Engine();
+    $render_config = array(
+        'site' => $site_config,
+        'page' => $page_config,
+        'content' => $content
+    );
+    $post = $mustache->render($layout, $render_config);
+    return $post;
+}
+
+function _render_layout($site_config, $layout)
+{
+    $layouts = array();
+    while (isset($layout['layout'])) {
+        $layouts[] = $layout;
+        $layout = _get_layout($layout['layout']);
+    }
+    $layouts[] = $layout;
+    $len = count($layouts);
+    $mustache = new Mustache_Engine();
+    for ($i = $len-1; $i > 0; $i--) {
+        $template = $layouts[$i]['content'];
+        $template = preg_replace('/{{\s+content\s+}}/', '{{{ content }}}', $template);
+        $render_config = array(
+            'site' => $site_config,
+            'content' => $layouts[$i-1]['content']
+        );
+        $layout = $mustache->render($template, $render_config);
+        $layouts[$i-1]['content'] = $layout;
+    }
+    return $layout;
+}
 
 function _url()
 {
@@ -92,7 +125,8 @@ function _get_post($filename)
 {
     $configStr = "";
     $content = "";
-    $handle = @fopen("posts/$filename", "r");
+    $post_folder = 'posts';
+    $handle = @fopen("$post_folder/$filename", "r");
     if ($handle) {
         $cnt = 0;
         while (($buffer = fgets($handle, 4096)) !== false) {
@@ -114,6 +148,43 @@ function _get_post($filename)
         fclose($handle);
     }
 
+    $config = Spyc::YAMLLoadString($configStr);
+    $config['content'] = $content;
+    return $config;
+}
+
+function _get_layout($layout_name)
+{
+    $filename = $layout_name . '.html';
+    $layout_folder = 'layouts';
+    $content = '';
+    $configStr = '';
+    $handle = @fopen("$layout_folder/$filename", "r");
+    if ($handle) {
+        $cnt = 0;
+        while (($buffer = fgets($handle, 4096)) !== false) {
+            if (false !== strpos($buffer, '---')){
+                ++$cnt;
+                if ($cnt > 1)
+                    break;
+            }
+            $configStr .= $buffer;
+        }
+
+        while (($buffer = fgets($handle, 4096)) !== false) {
+            $content .= $buffer;
+        }
+
+        if (!feof($handle)) {
+            echo "Error: unexpected fgets() fail\n";
+        }
+        fclose($handle);
+    }
+
+    if ($content == "") {
+        $content = $configStr;
+        $configStr = "";
+    }
     $config = Spyc::YAMLLoadString($configStr);
     $config['content'] = $content;
     return $config;
