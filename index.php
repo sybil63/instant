@@ -11,7 +11,7 @@ $config['posts'] = $posts;
 //var_dump($posts);
 //var_dump($config);
 
-$post_filename = $posts[$post_name]['filename'];
+$post_filename = _get_post_filename($post_name, $posts);
 if (null == $post_filename) {
     die("Can't find post");
 }
@@ -32,6 +32,16 @@ $layout = _render_layout($config, $layout);
 
 $post = _render_post($config, $post, $content, $layout);
 echo $post;
+
+function _get_post_filename($post_name, $posts)
+{
+    foreach ($posts as $post) {
+        if ($post_name == $post['name']) {
+            return $post['filename'];
+        }
+    }
+    return null;
+}
 
 function _render_post($site_config, $page_config, $content, $layout)
 {
@@ -116,15 +126,17 @@ function _get_posts()
             if ($entry != "." && $entry != "..") {
                 $file = explode(".", $entry);
                 $post_name = $file[0];
-                $posts[$post_name]['filename'] = $entry;
+                $post['filename'] = $entry;
+                $post['name'] = $post_name;
                 $url = "/posts";
-                $words = explode('-', $filename);
+                $words = explode('-', $post_name);
                 foreach ($words as $word) {
                     $url .= '/';
                     $url .= $word;
                 }
-                $posts[$post_name]['url'] = $url;
-                $posts[$post_name]['title'] = $words[count($words) - 1];
+                $post['url'] = $url;
+                $post['title'] = $words[count($words) - 1];
+                $posts[] = $post;
             }
         }
         closedir($handle);
