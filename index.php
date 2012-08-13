@@ -2,9 +2,10 @@
 require_once('lib/bootstrap.php');
 $url = _url();
 
+$use_cache = false;
 $cache_base = './cache';
 $config_cache = "$cache_base/config";
-if (file_exists($config_cache)){
+if ($use_cache && file_exists($config_cache)){
     $config = Spyc::YAMLLoad($config_cache);
 }else {
     $posts = _get_posts();
@@ -12,10 +13,13 @@ if (file_exists($config_cache)){
     $config['posts'] = $posts;
     $config['categories'] = _get_categories($posts);
     $cache_data = Spyc::YAMLDump($config);
-    if (false === file_exists($cache_base)) {
-        mkdir($cache_base);
+
+    if ($use_cache) {
+        if (false === file_exists($cache_base)) {
+            mkdir($cache_base);
+        }
+        file_put_contents($config_cache, $cache_data);
     }
-    file_put_contents($config_cache, $cache_data);
 }
 
 $post_name = _get_post_name($url);

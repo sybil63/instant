@@ -1,21 +1,15 @@
 ---
 layout: default
-title: Sybil63
+title: Markdown blog
 ---
 
 <p class="title">{{ page.title }} </p>
 
-##About  
-* 89年生，性别女
-* 不放弃认识世界的理想主义者
-* 喜欢简单优美的事物
-* 程序员，目前在网易旗下搜索-网易有道
-* github的粉丝，开源软件爱好者
-* 旅游、滑雪、吉他是目前正在发展的业余爱好
+##About
+* 一个用markdown写blog的应用
+* php版本的jekyll
+* 由于写readme实在太恶心了，这个小东西可以比较方便的使用IDE写readme
 
-##About this site  
-
-##Contact  
+##Contact
 * Email: xichen0603@gmail.com
-* Weibo: __sybil
 
