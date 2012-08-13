@@ -40,6 +40,7 @@ function _render_post($site_config, $page_config, $content, $layout)
         'page' => $page_config,
         'content' => $content
     );
+    $layout = preg_replace('/{{\s+content\s+}}/', '{{{ content }}}', $layout);
     $post = $mustache->render($layout, $render_config);
     return $post;
 }
