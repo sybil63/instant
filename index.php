@@ -1,47 +1,35 @@
 <?php
 require_once('lib/bootstrap.php');
 
-$instant = new Instant(array(
-    'use_cache' => false
-));
+$instant = new Instant();
 $post = $instant->render();
 echo $post;
 
+/**
+ * A simple class to handle request
+ * get base url => get post file => get layout => render page
+ *
+ * TODO add cache to make it faster
+ * @author Sybil
+ **/
 class Instant
 {
     var $url;
     var $use_cache;
     var $cache_base;
     var $config;
-    var $setting;
     var $error_page;
     var $post_folder;
     var $layout_folder;
 
-    function __construct($data)
+    function __construct()
     {
-        $this->setting = $data;
+        $this->config = $this->_get_config();
         $this->use_cache = $this->_get_setting('use_cache', true);
         $this->cache_base = $this->_get_setting('cache_base', './cache');
         $this->error_page = $this->_get_setting('error_page', '404');
         $this->post_folder = $this->_get_setting('post_folder', 'posts');
         $this->layout_folder = $this->_get_setting('layout_folder', 'layouts');
-
-        $config_cache = $this->cache_base . '/config';
-        if ($this->use_cache && file_exists($this->config_cache)){
-            $this->config = Spyc::YAMLLoad($config_cache);
-        }else {
-            $config = $this->_get_config();
-
-            if ($this->use_cache) {
-                $cache_data = Spyc::YAMLDump($config);
-                if (false === file_exists($this->cache_base)) {
-                    mkdir($this->cache_base);
-                }
-                file_put_contents($config_cache, $cache_data);
-            }
-            $this->config = $config;
-        }
 
         $this->url = $this->_url();
     }
@@ -53,6 +41,10 @@ class Instant
      **/
     public function render()
     {
+        $posts = $this->_get_posts();
+        $this->config['posts'] = $posts;
+        $this->config['categories'] = $this->_get_categories($posts);
+
         $post_name = $this->_get_post_name($this->url);
         if (null == $post_name) {
             $post_name = $this->config['index']; 
@@ -65,20 +57,20 @@ class Instant
         $content = $post['content'];
         unset($post['content']);
 
-        $content = $this->_render_syntax($content);
-        $content =  Markdown($content);
-
         $layout = $this->_get_layout($post['layout']);
         $layout = $this->_render_layout($this->config, $layout);
 
+        $content = $this->_render_syntax($content);
+        $content =  Markdown($content);
         $post = $this-> _render_post($this->config, $post, $content, $layout);
+
         return $post;
     }
 
     protected function _get_setting($name, $default = null)
     {
-        if (isset($this->setting[$name])) 
-            return $this->setting[$name];
+        if (isset($this->config[$name])) 
+            return $this->config[$name];
         return $default;
     }
 
@@ -202,9 +194,6 @@ class Instant
     protected function _get_config()
     {
         $config = Spyc::YAMLLoad("config.yaml");
-        $posts = $this->_get_posts();
-        $config['posts'] = $posts;
-        $config['categories'] = $this->_get_categories($posts);
         return $config;
     }
 

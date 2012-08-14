@@ -12,3 +12,5 @@ syntax: vibrant
 
 permalink: pretty
 index: archives
+
+use_cache: false
