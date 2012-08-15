@@ -19,7 +19,7 @@
 
 ## 目录说明
  * lib: 放置了一些使用到的外置库
- * layouts: 放置模板，跟jekyll一样，也支持多层模板
+ * layouts: 放置模板，跟jekyll一样，也支持多层模板。目前默认模板都以.html结尾
  * posts: 放置markdown文档,访问post的url是按照post的名称声称，比如
 
         2012-08-13-test.md => /posts/2012/08/13/test
@@ -27,7 +27,16 @@
   post的头里也可以定义一些变量，使用page.XX来访问。
   目前对本应用有意义的只有layout变量和categories变量
 
- * config.yaml: 定义一些常用变量，模板里可以使用page.XX来访问
+        page.date
+        page.title
+        ...
+
+ * config.yaml: 定义一些常用变量，模板里可以使用site.XX来访问，目前唯一特殊的变量是categories，这是一个按照category排列的post倒排索引
+    
+        site.title
+        site.author
+        site.categories.CATEGORY
+        ...
 
  to be continue...
 
