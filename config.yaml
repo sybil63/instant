@@ -2,7 +2,7 @@
 #      Main Configs       #
 # ----------------------- #
 
-title: Sybil's Blog
+title: A markdown blog in php
 author: Sybil
 time: 2012
 
@@ -11,6 +11,6 @@ time: 2012
 syntax: vibrant
 
 permalink: pretty
-index: archives
+index: archives 
 
 use_cache: false

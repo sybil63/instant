@@ -1,8 +1,3 @@
----
-layout: post
-title: A Markdown Blog
-date: 2012-08-16
----
 # What's instant
 * 这个项目是我在公司内为了写readme而弄出来的小玩具
 * 一个用markdown写blog的应用

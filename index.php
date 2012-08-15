@@ -117,7 +117,7 @@ class Instant
      *
      * @return string
      **/
-    function _render_layout($site_config, $layout)
+    protected function _render_layout($site_config, $layout)
     {
         $layouts = array();
         while (isset($layout['layout'])) {
@@ -318,7 +318,7 @@ class Instant
      *
      * @return string
      **/
-    function _render_syntax($content)
+    protected function _render_syntax($content)
     {
         $lines = explode("\n", $content);
         $ret = "";
