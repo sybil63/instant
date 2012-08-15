@@ -11,6 +11,6 @@ time: 2012
 syntax: vibrant
 
 permalink: pretty
-index: archives 
+index: about 
 
 use_cache: false
