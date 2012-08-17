@@ -134,6 +134,10 @@ ul.posts li {
       line-height: 1.5em;
 }
 
+.site img{
+      max-width: 40em;  
+}
+
 .title {
     color: #a00;
     font-weight: bold;
@@ -206,6 +210,8 @@ ul.posts li {
     border: 1px solid #ddd;
     /*background-color: #eef;*/
     padding: 0 .4em;
+    width: 40em;
+    word-wrap:break-word;
   }
 
   #post ul,
