@@ -58,7 +58,7 @@ class Instant
         unset($post['content']);
 
         $layout = $this->_get_layout($post['layout']);
-        $layout = $this->_render_layout($this->config, $layout);
+        $layout = $this->_render_layout($this->config, $posts, $layout);
 
         $content = $this->_render_syntax($content);
         $content =  Markdown($content);
@@ -117,7 +117,7 @@ class Instant
      *
      * @return string
      **/
-    protected function _render_layout($site_config, $layout)
+    protected function _render_layout($site_config, $page_config, $layout)
     {
         $layouts = array();
         while (isset($layout['layout'])) {
@@ -135,6 +135,7 @@ class Instant
             $template = preg_replace('/{{\s+content\s+}}/', '{{{ content }}}', $template);
             $render_config = array(
                 'site' => $site_config,
+                'page' => $page_config,
                 'content' => $layouts[$i-1]['content']
             );
             $layout = $mustache->render($template, $render_config);
@@ -228,6 +229,7 @@ class Instant
             }
             closedir($handle);
         }
+        krsort($posts);
         return $posts;
     }
 
